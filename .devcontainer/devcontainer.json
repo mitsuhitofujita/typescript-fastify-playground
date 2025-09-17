@@ -1,0 +1,25 @@
+{
+	"name": "node-devcontainer",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:22",
+	"features": {
+		"ghcr.io/devcontainers/features/github-cli": {},
+		"./features/claude-code": {}
+	},
+	"forwardPorts": [3000],
+	"runArgs": ["--env-file", ".devcontainer/devcontainer.env"],
+	// ホストの設定ディレクトリをマウント
+	"mounts": [
+		"source=${localEnv:HOME}/.config/gh,target=/home/node/.config/gh,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.claude,target=/home/node/.claude,type=bind,consistency=cached"
+	],
+	// 拡張機能や設定のカスタマイズ
+	"customizations": {
+		"vscode": {
+			"extensions": ["biomejs.biome", "editorconfig.editorconfig"],
+			"settings": {
+				"editor.formatOnSave": true,
+				"editor.defaultFormatter": "biomejs.biome"
+			}
+		}
+	}
+}
